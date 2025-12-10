@@ -1,43 +1,57 @@
-create if not exists addressers(
-    id integer AUTO_INCREMENT,
-    street varchar (30) no null,
-    suit varchar ()
+CREATE TABLE IF NOT EXISTS geos(
+    id INTEGER AUTO_INCREMENT,
+    lat DECIMAL NOT NULL,
+    lng DECIMAL NOT NULL
+
+    CONSTRAINT pk_geos PRIMARY KEY (id)
 );
 
+CREATE TABLE IF NOT EXISTS addresses(
+    id INTEGER AUTO_INCREMENT,
+    street VARCHAR(30) NOT NULL,
+    suite VARCHAR(15) NOT NULL,
+    city VARCHAR(20) NOT NULL,
+    zipcode VARCHAR(15) NOT NULL,
+    geoId INTEGER NOT NULL,
 
-
-
-
-create if not exists companies(
-    name varchar(30) not null,
-    catchphrase varchar (255) not null,
-    bs varchar(100) not null,
-
-    constraint pk_comapanies primary key (id)
+    CONSTRAINT pk_addresses PRIMARY KEY (id),
+    CONSTRAINT fk_addresses_geos FOREIGN KEY (geoId)
+    REFERENCES geos(id)
 );
 
-create table if not exists users(
-    id integer AUTO_INCREMENT,
-    name varchar(30) not null,
-    username varchar(15) not null,
-    email varchar(255) not null,
-    phone varchar(25) not null,
-    website varchar(255) not null,
-    addresiid integer not null,
-    companyid integer no null,
-    constraint pk_user  primary key (id)
-    constraint fk_users_comapies foreign key (companyid)
-    references companies(id)
+CREATE TABLE IF NOT EXISTS companies(
+    id INTEGER AUTO_INCREMENT,
+    name VARCHAR(30) NOT NULL,
+    catchPhrase VARCHAR(255) NOT NULL,
+    bs VARCHAR(100) NOT NULL,
+
+    CONSTRAINT pk_companies PRIMARY KEY (id)
 );
 
+CREATE TABLE IF NOT EXISTS users(
+    id INTEGER AUTO_INCREMENT,
+    name VARCHAR(30) NOT NULL,
+    username VARCHAR(15) NOT NULL,
+    email VARCHAR(255) NOT NULL,
+    phone VARCHAR(25) NOT NULL,
+    website VARCHAR(255) NOT NULL,
+    addressId INTEGER NOT NULL,
+    companyId INTEGER NOT NULL,
 
-create table if not exists posts(
-    id integer AUTO_INCREMENT,
-    title varchar(50) not null,
-    body varchar(255) NOT NULL, 
-    userid integer not null,
-    
-    constraint pk_posts primary key (id),
-    constraint fk_posts_users foreign key (userid)
-    references users(id)
+    CONSTRAINT pk_users PRIMARY KEY (id),
+    CONSTRAINT fk_users_addresses FOREIGN KEY (addressId)
+    REFERENCES addresses(id),
+    CONSTRAINT fk_users_companies FOREIGN KEY (companyId)
+    REFERENCES companies(id)
+);
+
+CREATE TABLE IF NOT EXISTS posts(
+    id INTEGER AUTO_INCREMENT,
+    title VARCHAR(50) NOT NULL,
+    body VARCHAR(255) NOT NUll,
+    userId INTEGER NOT NULL,
+
+    CONSTRAINT pk_posts PRIMARY KEY (id),
+    CONSTRAINT fk_posts_users FOREIGN KEY (userId) 
+    REFERENCES users(id)
 );
