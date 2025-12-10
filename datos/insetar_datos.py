@@ -1,4 +1,4 @@
-from datos import sesion
+from .conexion import sesion
 
 
 def insertar_objeto(objeto):

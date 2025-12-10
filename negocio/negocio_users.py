@@ -3,7 +3,9 @@ from prettytable import PrettyTable
 
 from modelos import User
 from datos import insertar_objeto, obtener_user_name
-from negocio import crear_geolocalizacion_db,crear_direccion_db,crear_compania_db
+from .negocio_geos import crear_geolocalizacion_db
+from .negocio_addresses import crear_direccion_db
+from .negocio_companies import crear_compania_db
 
 
 def obtener_users_api(url):
