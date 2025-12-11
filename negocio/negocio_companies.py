@@ -23,4 +23,9 @@ def crear_compania_db(nombre, slogan, negocio):
         except Exception as error:
             print(f'Error al guardar la geolocalización: {error}')
     else:
-        print('Compañía ya existe, no será agregada.')
+        # Si la compañía ya existe, devolver su id para usarlo en la creación de usuario
+        try:
+            # `cia` puede ser un objeto Company
+            return cia.id if hasattr(cia, 'id') else None
+        except Exception:
+            return None
