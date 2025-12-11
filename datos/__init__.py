@@ -1,3 +1,3 @@
 from .conexion import sesion
 from .insetar_datos import insertar_objeto
-from .obtener_datos import obtener_listado_objetos, obtener_user_name, obtener_company_name
+from .obtener_datos import obtener_listado_objetos, obtener_user_name, obtener_company_name, obtener_user_por_id, actualizar_user, eliminar_user
